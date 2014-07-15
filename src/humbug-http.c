@@ -55,21 +55,13 @@ void process_event(event_t *event){
 		strcat(encoded_post, "&");
 		strcat(encoded_post, gateway_str);
 		strcat(encoded_post, "&encoded=1");
-<<<<<<< HEAD
-		result = send_to_humbug(encoded_post, HUMBUG_LINK, response);
-=======
 		result = send_to_humbug(encoded_post, config.humbugScriptLink, response);
->>>>>>> release/0.9.0
 	}else{
 		strcat(post_str, "&");
 		strcat(post_str, gateway_str);
 		strcat(post_str, "&encoded=0");
 		write_log(post_str, DEBUG);
-<<<<<<< HEAD
-		result = send_to_humbug(post_str, HUMBUG_LINK, response);
-=======
 		result = send_to_humbug(post_str, config.humbugScriptLink, response);
->>>>>>> release/0.9.0
 	}
 
 	bzero(post_str, MAX_REQUEST_DATA_LENGTH);

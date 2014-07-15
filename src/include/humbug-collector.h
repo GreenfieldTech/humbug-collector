@@ -38,11 +38,7 @@
 #ifndef HUMBUGCOLLECTOR_H_
 #define HUMBUGCOLLECTOR_H_
 
-<<<<<<< HEAD
-#define MY_VERSION   "0.8.2"
-=======
 #define MY_VERSION   "0.8.3"
->>>>>>> release/0.9.0
 #define CONF_FILE    "/etc/humbug/humbug.conf"
 #define WORK_DIR     "/usr/bin"
 #define PID_FILE     "/var/run/humbug/humbug-collector.pid"
@@ -93,9 +89,6 @@ struct config_t {
 	int     check_community;
 	int		hangup;
 	int  	debug_level;
-<<<<<<< HEAD
-	char 	logFileName		[512];
-=======
 	char 	logFileName		[1024];
 	char 	configFileName		[1024];
 	char	humbugScriptLink	[128];
@@ -104,7 +97,6 @@ struct config_t {
 	char	humbugScriptPath	[1024];
 	char	humbugPid		[1024];
 	
->>>>>>> release/0.9.0
 	/* Trunks configs list */
 	list_root_t *trunks_conf;
 	struct trunk_t *conf_all;
