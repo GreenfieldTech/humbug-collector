@@ -9,7 +9,7 @@
 ################################################################################
 
 Name:           humbug-collector
-Version:        0.8.2
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        The Humbug analytics collection agent
 Group:          Applications/Communications
@@ -93,6 +93,12 @@ fi
 %dir /var/log/humbug
 
 %changelog
+* Tue Jul 15 2014 Nir Simionovich <nirs@greenfieldtech.net> - 0.9.1-1
+- Added a proper README.md file with installation instructions
+* Tue Jul 15 2014 Nir Simionovich <nirs@greenfieldtech.net> - 0.9.0-1
+- Added multi-instance capability
+- Added multi-config capability
+- Added customized URI submissions
 * Thu Jun 14 2012 Igor Ratgauzer <igor@humbuglabs.org> - 0.8.2-1
 - Fixed collector freeze bug
 * Mon Mar 19 2012 Igor Ratgauzer <igor@humbuglabs.org> - 0.8-1
