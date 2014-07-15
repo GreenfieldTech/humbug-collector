@@ -6,7 +6,10 @@ The collector can be used as a means to connect to the Humbug Service, or, as a 
 Changelog:
 ----------
 0.8.2 - Initial Humbug Collector Release, by Humbug Telecom Labs Ltd
+
 0.9.0 - Controllable Instance Release, by Greenfield Technlogies Ltd
+
+0.9.1 - Add a proper README.md file with installation and new SPEC file
 
 Installation
 ------------
