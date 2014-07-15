@@ -1,0 +1,86 @@
+#!/bin/sh
+# $Id: rc.redhat.humbug nirs $
+#
+# Copyright (C) 2010, Humbug Telecom Labs, Ltd.
+#
+# humbug    Starts, Stops and Reloads humbug-collector.
+#
+# chkconfig: 2345 99 60
+# description: Humbug Data collector Agent.
+# processname: humbug-collector
+# pidfile: /var/run/humbug/humbug-collector.pid
+#
+
+# Use this option to specify a different configuration directory
+HBC_CONFIG=/etc/humbug
+
+# Installation directory
+HBC_BIN=/usr/bin
+
+# PID file
+HBC_PID=/var/run/humbug/humbug-collector.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+if ! [ -x $HBC_BIN/humbug-collector ] ; then
+	echo "ERROR: $HBC_BIN/humbug-collector not found"
+	exit 0
+fi
+
+if ! [ -d $HBC_CONFIG ] ; then
+	echo "ERROR: $HBC_CONFIG directory not found"
+	exit 0
+fi
+
+# Full path to humbug-collector binary
+DAEMON=$HBC_BIN/humbug-collector
+
+RETVAL=0
+
+start() {
+	echo -n $"Starting humbug-collector "
+	daemon $DAEMON
+	RETVAL=$?
+	echo
+	return $RETVAL
+}
+
+stop() {
+	echo -n $"Shutting down humbug-collector "
+	killproc $DAEMON -TERM
+	RETVAL=$?
+	echo
+	return $RETVAL
+}
+
+reload() {
+	echo -n $"Reload humbug-collector "
+	killproc $DAEMON -HUP
+	echo
+}
+
+# See how we were called.
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	reload)
+		reload
+		;;
+	status)
+		status $DAEMON
+		;;
+	*)
+		echo "Usage: humbug-collector {start|stop|restart|reload|status}"
+		exit 1
+esac
+
+exit $?
