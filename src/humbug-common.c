@@ -63,7 +63,16 @@ int read_config(void) {
 	FILE *file;
 	char conf_buf[CONF_STRING_LENGTH];
 
+<<<<<<< HEAD
 	file = fopen(CONF_FILE, "r");
+=======
+	if (!strlen(config.configFileName)) {
+		file = fopen(CONF_FILE, "r");
+	} else {
+		file = fopen(config.configFileName, "r");
+	}
+
+>>>>>>> release/0.9.0
 	if (NULL == file) {
 		fprintf(stderr, "ERROR Can`t open config file: %s\n", strerror(errno));
 		return -1;
@@ -136,6 +145,33 @@ int read_config(void) {
 			}
 			strcpy(config.humbugApikey, value);
 		}
+<<<<<<< HEAD
+=======
+		if (0 == strncmp("h_scriptpath", variable, 12)) {
+			if(strlen(value) == 0) {
+				strcpy(value, "/");
+			}
+			strcpy(config.humbugScriptPath, value);
+		}
+		if (0 == strncmp("h_script_link", variable, 13)) { 
+			if(strlen(value) == 0) {
+				strcpy(value, HUMBUG_LINK);
+			}
+			strcpy(config.humbugScriptLink, value);
+		}
+		if (0 == strncmp("h_script_conf", variable, 13)) { 
+			if(strlen(value) == 0) {
+				strcpy(value, HUMBUG_CONFIG);
+			}
+			strcpy(config.humbugScriptConfig, value);
+		}
+		if (0 == strncmp("h_script_comm", variable, 13)) { 
+			if(strlen(value) == 0) {
+				strcpy(value, HUMBUG_COMM);
+			}
+			strcpy(config.humbugScriptComm, value);
+		}
+>>>>>>> release/0.9.0
 		if (0 == strncmp("h_read", variable, 6)) {
 			char *pEvent;
 			config.eventsSize = 0;
@@ -196,7 +232,11 @@ int get_config(void){
 	int res;
 
 	bzero(response, 4096);
+<<<<<<< HEAD
 	res = send_to_humbug(gateway_str, HUMBUG_CONFIG, response);
+=======
+	res = send_to_humbug(gateway_str, config.humbugScriptConfig, response);
+>>>>>>> release/0.9.0
 
 	if(debug) fprintf(stdout, "%s\n\n", response);
 
@@ -821,7 +861,11 @@ int check_community_blacklist(char *num){
 	if(!num) return 1;
 
 	sprintf(post, "%s&num=%s", gateway_str, num);
+<<<<<<< HEAD
 	res = send_to_humbug(post, HUMBUG_COMM, resp);
+=======
+	res = send_to_humbug(post, config.humbugScriptComm, resp);
+>>>>>>> release/0.9.0
 
 	if(debug) fprintf(stdout, "%s\n\n", resp);
 
@@ -1001,6 +1045,11 @@ void usage(void) {
 	fprintf(stdout, "Usage:\n");
 	fprintf(stdout, " humbug-collector [-d <debug level>] [-v] [-h|?]\n");
 	fprintf(stdout, "Options:\n");
+<<<<<<< HEAD
+=======
+	fprintf(stdout, " -c|?, --configfile\t\tSpecify an alternative configuration file (default: /etc/humbug/humbug.conf)\n");
+	fprintf(stdout, " -p|?, --pidfile\t\tSpecify an alternative PID file (default: /var/run/humbug/humbug-collector.pid)\n");
+>>>>>>> release/0.9.0
 	fprintf(stdout,
 			" -d,   --debug\t<debug level>\tStarts humbug-collector in debug mode\n");
 	fprintf(stdout, "\t\t\t\t  debug level:\n");

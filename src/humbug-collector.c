@@ -49,10 +49,19 @@ int main (int argc, char *argv[]) {
 
 	int   debugLevel;
 	int   next_option;
+<<<<<<< HEAD
 	char *short_options = "d:hv?";
 
 	struct option long_options[] = {
 				{ "debug", required_argument, NULL, 'd' },
+=======
+	char *short_options = "d:c:p:hv?";
+
+	struct option long_options[] = {
+				{ "debug", required_argument, NULL, 'd' },
+				{ "configfile", required_argument, NULL, 'c'},
+				{ "pidfile", required_argument, NULL, 'p'},
+>>>>>>> release/0.9.0
 			    { "help", 0, no_argument, 'h' },
 			    { "version", 0, no_argument, 'v' },
 			    { NULL, 0, NULL, 0 }
@@ -72,6 +81,17 @@ int main (int argc, char *argv[]) {
 						config.debug_level);
 				write_log(log_message, 0);
 				break;
+<<<<<<< HEAD
+=======
+			case 'c':
+				strcpy(config.configFileName, optarg);
+				printf("=== Loading configuration from %s\n", config.configFileName);
+				break;
+			case 'p':
+				strcpy(config.humbugPid, optarg);
+				printf("=== Writing pid file to %s\n", config.humbugPid);	
+				break;
+>>>>>>> release/0.9.0
 			case 'h':
 				version();
 				usage();
@@ -235,6 +255,11 @@ int become_daemon(int * const pid_file_desc) {
 	int lock_file, kill_result, lock_result, my_pid, stdio_desc;
 	FILE *pid_file;
 	char pid_buf[17], *lock_str, pid_str[16];
+<<<<<<< HEAD
+=======
+	char pid_filename[1024];
+
+>>>>>>> release/0.9.0
 	unsigned long lock_pid;
 	struct flock exclusiveLock;
 
@@ -242,10 +267,21 @@ int become_daemon(int * const pid_file_desc) {
 
 	chdir("/");
 	// TODO chroot
+<<<<<<< HEAD
 
 	lock_file = open(PID_FILE, O_RDWR | O_CREAT | O_EXCL, 0644);
 	if (lock_file < 0) {
 		pid_file = fopen(PID_FILE, "r");
+=======
+	strcpy(pid_filename, PID_FILE);
+	if (strlen(config.humbugPid)) {
+		strcpy(pid_filename, config.humbugPid);
+	}
+
+	lock_file = open(pid_filename, O_RDWR | O_CREAT | O_EXCL, 0644);
+	if (lock_file < 0) {
+		pid_file = fopen(pid_filename, "r");
+>>>>>>> release/0.9.0
 
 		if (NULL == pid_file) {
 			fprintf(stderr, "ERROR. Can`t read/create %s file: %s\n", PID_FILE, strerror(errno));
@@ -262,13 +298,21 @@ int become_daemon(int * const pid_file_desc) {
 			if (0 == kill_result) {
 				fprintf(stderr, "ERROR. A lock file %s has been detected. "
 					"It is owned by the (active) process with PID %ld.\n",
+<<<<<<< HEAD
 					PID_FILE, lock_pid);
+=======
+					pid_filename, lock_pid);
+>>>>>>> release/0.9.0
 			}else{
 				if (errno == ESRCH) {
 					fprintf(stderr, "ERROR. A lock file %s has been detected. "
 						"It appears it is owned by the process with PID %ld, which is now defunct. "
 						"Delete the lock file and try again.\n",
+<<<<<<< HEAD
 						PID_FILE, lock_pid);
+=======
+						pid_filename, lock_pid);
+>>>>>>> release/0.9.0
 				} else {
 					fprintf(stderr, "Could not acquire exclusive lock on PID file.\n");
 				}

@@ -12,7 +12,11 @@
 #
 
 # Use this option to specify a different configuration directory
+<<<<<<< HEAD
 HBC_CONFIG=/etc/humbug
+=======
+HBC_CONFIG=/etc/humbug/humbug.conf
+>>>>>>> release/0.9.0
 
 # Installation directory
 HBC_BIN=/usr/bin
@@ -28,7 +32,11 @@ if ! [ -x $HBC_BIN/humbug-collector ] ; then
 	exit 0
 fi
 
+<<<<<<< HEAD
 if ! [ -d $HBC_CONFIG ] ; then
+=======
+if ! [ -f $HBC_CONFIG ] ; then
+>>>>>>> release/0.9.0
 	echo "ERROR: $HBC_CONFIG directory not found"
 	exit 0
 fi
@@ -40,7 +48,11 @@ RETVAL=0
 
 start() {
 	echo -n $"Starting humbug-collector "
+<<<<<<< HEAD
 	daemon $DAEMON
+=======
+	daemon $DAEMON -c $HBC_CONFIG -p $HBC_PID
+>>>>>>> release/0.9.0
 	RETVAL=$?
 	echo
 	return $RETVAL
@@ -48,15 +60,28 @@ start() {
 
 stop() {
 	echo -n $"Shutting down humbug-collector "
+<<<<<<< HEAD
 	killproc $DAEMON -TERM
 	RETVAL=$?
 	echo
+=======
+	PID=`cat $HBC_PID`
+	kill -15 $PID
+	RETVAL=$?
+	echo
+	rm -f $HBC_PID
+>>>>>>> release/0.9.0
 	return $RETVAL
 }
 
 reload() {
 	echo -n $"Reload humbug-collector "
+<<<<<<< HEAD
 	killproc $DAEMON -HUP
+=======
+	PID=`cat $HBC_PID`
+	kill -1 $PID
+>>>>>>> release/0.9.0
 	echo
 }
 

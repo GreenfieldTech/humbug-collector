@@ -20,7 +20,11 @@ DESC="Humbug Data collector Agent"
 
 
 # Use this option to specify a different configuration directory
+<<<<<<< HEAD
 HBC_CONFIG=/etc/humbug
+=======
+HBC_CONFIG=/etc/humbug/humbug.conf
+>>>>>>> release/0.9.0
 
 # Installation directory
 HBC_BIN=/usr/bin
@@ -29,6 +33,12 @@ HBC_BIN=/usr/bin
 DAEMON=$HBC_BIN/humbug-collector
 #TRUE=/bin/true
 
+<<<<<<< HEAD
+=======
+# PID file
+HBC_PID=/var/run/humbug/humbug-collector.pid
+
+>>>>>>> release/0.9.0
 set -e
 
 if ! [ -x $DAEMON ] ; then
@@ -36,7 +46,11 @@ if ! [ -x $DAEMON ] ; then
 	exit 0
 fi
 
+<<<<<<< HEAD
 if ! [ -d $HBC_CONFIG ] ; then
+=======
+if ! [ -f $HBC_CONFIG ] ; then
+>>>>>>> release/0.9.0
 	echo "ERROR: $HBC_CONFIG directory not found"
 	exit 0
 fi
@@ -47,17 +61,36 @@ fi
 case "$1" in
   start)
 	log_begin_msg "Starting $DESC: "
+<<<<<<< HEAD
 	start-stop-daemon --start --oknodo --exec $DAEMON
+=======
+	start-stop-daemon --start --oknodo --exec $DAEMON -c $HBC_CONFIG -p $HBC_PID
+>>>>>>> release/0.9.0
 	log_end_msg $?
 	;;
   stop)
 	log_begin_msg "Stopping $DESC: "
+<<<<<<< HEAD
 	start-stop-daemon --stop --oknodo --exec $DAEMON
+=======
+	PID=`cat $HBC_PID`
+	kill -15 $PID
+	RETVAL=$?
+	echo
+	rm -f $HBC_PID
+	return $RETVAL	
+>>>>>>> release/0.9.0
 	log_end_msg $?
 	;;
   reload)
 	echo "Reloading $DESC configuration file."
 	start-stop-daemon --stop --oknodo --signal HUP --exec $DAEMON
+<<<<<<< HEAD
+=======
+	PID=`cat $HBC_PID`
+	kill -1 $PID
+	echo
+>>>>>>> release/0.9.0
 	;;
   restart)
 	$0 stop
